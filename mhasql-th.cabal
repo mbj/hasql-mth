@@ -61,7 +61,9 @@ library
     , vector
   default-language: Haskell2010
   if flag(development)
-    ghc-options: -Werror
+    ghc-options: -Werror -fplugin=SourceConstraints
+    build-depends:
+        source-constraints
   else
     ghc-options: -Wwarn
 
@@ -101,7 +103,9 @@ test-suite doctest
     , vector
   default-language: Haskell2010
   if flag(development)
-    ghc-options: -Werror
+    ghc-options: -Werror -fplugin=SourceConstraints
+    build-depends:
+        source-constraints
   else
     ghc-options: -Wwarn
 
@@ -147,6 +151,8 @@ test-suite test
     , vector
   default-language: Haskell2010
   if flag(development)
-    ghc-options: -Werror
+    ghc-options: -Werror -fplugin=SourceConstraints
+    build-depends:
+        source-constraints
   else
     ghc-options: -Wwarn

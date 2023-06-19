@@ -1,7 +1,7 @@
 {-# LANGUAgE QuasiQuotes #-}
 
-import MPrelude
 import MIO.Core (runMIO)
+import MPrelude
 
 import qualified CBT
 import qualified CBT.Container

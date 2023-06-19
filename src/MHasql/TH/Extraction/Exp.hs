@@ -1,5 +1,8 @@
 module MHasql.TH.Extraction.Exp where
 
+import Language.Haskell.TH
+import MHasql.TH.Prelude
+
 import qualified Data.Text.Encoding as Text
 import qualified Hasql.Decoders as Decoders
 import qualified Hasql.Encoders as Encoders
@@ -7,8 +10,6 @@ import qualified MHasql.TH.Construction.Exp as Exp
 import qualified MHasql.TH.Extraction.InputTypeList as InputTypeList
 import qualified MHasql.TH.Extraction.OutputTypeList as OutputTypeList
 import qualified MHasql.TH.Extraction.PrimitiveType as PrimitiveType
-import MHasql.TH.Prelude
-import Language.Haskell.TH
 import qualified PostgresqlSyntax.Ast as Ast
 
 undecodedStatement :: (Exp -> Exp) -> Text -> Ast.PreparableStmt -> Either Text Exp

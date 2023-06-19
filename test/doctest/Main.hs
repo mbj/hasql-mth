@@ -1,8 +1,8 @@
 module Main (main) where
 
-import qualified Test.DocTest
-
 import System.IO (IO)
+
+import qualified Test.DocTest
 
 main :: IO ()
 main = Test.DocTest.doctest

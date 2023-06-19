@@ -50,6 +50,9 @@ when:
   then:
     ghc-options:
     - -Werror
+    - -fplugin=SourceConstraints
+    dependencies:
+    - source-constraints
   else:
     ghc-options: -Wwarn
 
