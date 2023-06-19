@@ -5,12 +5,12 @@ module MHasql.TH.Construction.Exp where
 import Language.Haskell.TH.Syntax
 import MHasql.TH.Prelude
 
-import qualified Data.ByteString as ByteString
-import qualified Data.ByteString.Unsafe as ByteString
-import qualified Data.Vector.Generic as Vector
-import qualified Hasql.Decoders as Decoders
-import qualified Hasql.Encoders as Encoders
-import qualified Hasql.Statement as Statement
+import qualified Data.ByteString              as ByteString
+import qualified Data.ByteString.Unsafe       as ByteString
+import qualified Data.Vector.Generic          as Vector
+import qualified Hasql.Decoders               as Decoders
+import qualified Hasql.Encoders               as Encoders
+import qualified Hasql.Statement              as Statement
 import qualified TemplateHaskell.Compat.V0208 as Compat
 
 -- * Helpers
@@ -56,11 +56,11 @@ tuple = ConE . tupleDataName
 splitTupleAt :: Int -> Int -> Exp
 splitTupleAt arity position =
   let nameByIndex index = Name (OccName ('_' : show index)) NameS
-      names = enumFromTo 0 (pred arity) & map nameByIndex
-      pats = names & map VarP
-      pat = TupP pats
-      exps = names & map VarE
-      body = splitAt position exps & \(a, b) -> Compat.tupE [Compat.tupE a, Compat.tupE b]
+      names             = enumFromTo 0 (pred arity) & map nameByIndex
+      pats              = names & map VarP
+      pat               = TupP pats
+      exps              = names & map VarE
+      body              = splitAt position exps & \(a, b) -> Compat.tupE [Compat.tupE a, Compat.tupE b]
    in LamE [pat] body
 
 -- |
@@ -69,17 +69,16 @@ splitTupleAt arity position =
 -- a single divisible functor, parameterized by a tuple of according arity.
 contrazip :: [Exp] -> Exp
 contrazip = \case
-  [head] -> head
+  [head]      -> head
   head : tail -> appList (VarE 'divide) [splitTupleAt (succ (length tail)) 1, head, contrazip tail]
-  [] ->
-    SigE
-      (VarE 'conquer)
-      ( let fName = mkName "f"
-         in ForallT
-              [Compat.specifiedPlainTV fName]
-              [AppT (ConT ''Divisible) (VarT fName)]
-              (AppT (VarT fName) (TupleT 0))
-      )
+  []          -> SigE
+                   (VarE 'conquer)
+                   ( let fName = mkName "f"
+                      in ForallT
+                           [Compat.specifiedPlainTV fName]
+                           [AppT (ConT ''Divisible) (VarT fName)]
+                           (AppT (VarT fName) (TupleT 0))
+                   )
 
 -- |
 -- Given a list of applicative functor expressions,
@@ -93,7 +92,7 @@ contrazip = \case
 -- Just (1,2,3)
 cozip :: [Exp] -> Exp
 cozip = \case
-  [head] -> head
+  [head]      -> head
   head : tail ->
     let length' = length tail + 1
      in foldl'
@@ -106,8 +105,8 @@ cozip = \case
 -- Lambda expression, which destructures 'Fold'.
 foldLam :: (Exp -> Exp -> Exp -> Exp) -> Exp
 foldLam body =
-  let stepVarName = mkName "progress"
-      initVarName = mkName "start"
+  let stepVarName    = mkName "progress"
+      initVarName    = mkName "start"
       extractVarName = mkName "finish"
    in LamE
         [ Compat.conP
@@ -153,10 +152,12 @@ unidimensionalParamEncoder =
   applyParamToEncoder . applyNullabilityToEncoder True
 
 multidimensionalParamEncoder :: Int -> Exp -> Exp
-multidimensionalParamEncoder dimensionality =
-  applyParamToEncoder . applyNullabilityToEncoder True . AppE (VarE 'Encoders.array)
-    . applyArrayDimensionalityToEncoder dimensionality
-    . applyNullabilityToEncoder True
+multidimensionalParamEncoder dimensionality
+  = applyParamToEncoder
+  . applyNullabilityToEncoder True
+  . AppE (VarE 'Encoders.array)
+  . applyArrayDimensionalityToEncoder dimensionality
+  . applyNullabilityToEncoder True
 
 applyParamToEncoder :: Exp -> Exp
 applyParamToEncoder = AppE (VarE 'Encoders.param)
@@ -178,10 +179,12 @@ unidimensionalColumnDecoder =
   applyColumnToDecoder . applyNullabilityToDecoder True
 
 multidimensionalColumnDecoder :: Int -> Exp -> Exp
-multidimensionalColumnDecoder dimensionality =
-  applyColumnToDecoder . applyNullabilityToDecoder True . AppE (VarE 'Decoders.array)
-    . applyArrayDimensionalityToDecoder dimensionality
-    . applyNullabilityToDecoder True
+multidimensionalColumnDecoder dimensionality
+  = applyColumnToDecoder
+  . applyNullabilityToDecoder True
+  . AppE (VarE 'Decoders.array)
+  . applyArrayDimensionalityToDecoder dimensionality
+  . applyNullabilityToDecoder True
 
 applyColumnToDecoder :: Exp -> Exp
 applyColumnToDecoder = AppE (VarE 'Decoders.column)
