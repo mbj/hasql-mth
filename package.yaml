@@ -39,6 +39,20 @@ dependencies:
 ghc-options:
 - -Wall
 
+flags:
+  development:
+    description: Run GHC with development flags
+    default: false
+    manual: true
+
+when:
+- condition: flag(development)
+  then:
+    ghc-options:
+    - -Werror
+  else:
+    ghc-options: -Wwarn
+
 library:
   source-dirs: src
   exposed-modules:
