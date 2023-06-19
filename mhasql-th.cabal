@@ -22,6 +22,11 @@ source-repository head
   type: git
   location: https://github.com/mbj/mhasql-th
 
+flag development
+  description: Run GHC with development flags
+  manual: True
+  default: False
+
 library
   exposed-modules:
       MHasql.TH
@@ -55,6 +60,12 @@ library
     , uuid
     , vector
   default-language: Haskell2010
+  if flag(development)
+    ghc-options: -Werror -fplugin=SourceConstraints
+    build-depends:
+        source-constraints
+  else
+    ghc-options: -Wwarn
 
 test-suite doctest
   type: exitcode-stdio-1.0
@@ -91,6 +102,12 @@ test-suite doctest
     , uuid
     , vector
   default-language: Haskell2010
+  if flag(development)
+    ghc-options: -Werror -fplugin=SourceConstraints
+    build-depends:
+        source-constraints
+  else
+    ghc-options: -Wwarn
 
 test-suite test
   type: exitcode-stdio-1.0
@@ -133,3 +150,9 @@ test-suite test
     , uuid
     , vector
   default-language: Haskell2010
+  if flag(development)
+    ghc-options: -Werror -fplugin=SourceConstraints
+    build-depends:
+        source-constraints
+  else
+    ghc-options: -Wwarn

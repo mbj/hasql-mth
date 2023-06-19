@@ -2,11 +2,12 @@
 
 module MHasql.TH.Extraction.PlaceholderTypeMap where
 
-import qualified Data.IntMap.Strict as IntMap
 import MHasql.TH.Extraction.ChildExprList (ChildExpr (..))
-import qualified MHasql.TH.Extraction.ChildExprList as ChildExprList
 import MHasql.TH.Prelude
 import PostgresqlSyntax.Ast
+
+import qualified Data.IntMap.Strict as IntMap
+import qualified MHasql.TH.Extraction.ChildExprList as ChildExprList
 
 preparableStmt :: PreparableStmt -> Either Text (IntMap Typename)
 preparableStmt = childExprList . ChildExprList.preparableStmt

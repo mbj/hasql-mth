@@ -3,10 +3,11 @@
 module MHasql.TH.Extraction.InputTypeList where
 
 import Data.Functor (($>))
-import qualified Data.IntMap.Strict as IntMap
-import qualified MHasql.TH.Extraction.PlaceholderTypeMap as PlaceholderTypeMap
 import MHasql.TH.Prelude
 import PostgresqlSyntax.Ast
+
+import qualified Data.IntMap.Strict as IntMap
+import qualified MHasql.TH.Extraction.PlaceholderTypeMap as PlaceholderTypeMap
 
 -- |
 -- >>> import qualified PostgresqlSyntax.Parsing as P

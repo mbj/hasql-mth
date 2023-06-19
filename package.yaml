@@ -39,6 +39,23 @@ dependencies:
 ghc-options:
 - -Wall
 
+flags:
+  development:
+    description: Run GHC with development flags
+    default: false
+    manual: true
+
+when:
+- condition: flag(development)
+  then:
+    ghc-options:
+    - -Werror
+    - -fplugin=SourceConstraints
+    dependencies:
+    - source-constraints
+  else:
+    ghc-options: -Wwarn
+
 library:
   source-dirs: src
   exposed-modules:

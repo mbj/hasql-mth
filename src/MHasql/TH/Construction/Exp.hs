@@ -2,14 +2,15 @@
 -- Expression construction.
 module MHasql.TH.Construction.Exp where
 
+import Language.Haskell.TH.Syntax
+import MHasql.TH.Prelude
+
 import qualified Data.ByteString as ByteString
 import qualified Data.ByteString.Unsafe as ByteString
 import qualified Data.Vector.Generic as Vector
 import qualified Hasql.Decoders as Decoders
 import qualified Hasql.Encoders as Encoders
 import qualified Hasql.Statement as Statement
-import MHasql.TH.Prelude
-import Language.Haskell.TH.Syntax
 import qualified TemplateHaskell.Compat.V0208 as Compat
 
 -- * Helpers
