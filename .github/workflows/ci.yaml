@@ -54,10 +54,3 @@ jobs:
       run: ./stack build --fast --test --no-run-tests
     - name: Run tests
       run: ./stack build --fast --test
-  all-checks:
-    runs-on: ubuntu-latest
-    name: All Checks Pass
-    needs:
-    - tests
-    steps:
-    - run: exit 0
