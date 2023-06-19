@@ -1,6 +1,9 @@
 -- |
 -- AST traversal extracting input types.
-module MHasql.TH.Extraction.InputTypeList where
+module MHasql.TH.Extraction.InputTypeList
+  ( preparableStmt
+  )
+where
 
 import Data.Functor (($>))
 import MHasql.TH.Prelude

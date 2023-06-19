@@ -1,4 +1,8 @@
-module MHasql.TH.Extraction.Exp where
+module MHasql.TH.Extraction.Exp
+  ( foldStatement
+  , undecodedStatement
+  )
+where
 
 import Language.Haskell.TH
 import MHasql.TH.Prelude

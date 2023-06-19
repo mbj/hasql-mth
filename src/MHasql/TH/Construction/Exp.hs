@@ -1,6 +1,22 @@
 -- |
 -- Expression construction.
-module MHasql.TH.Construction.Exp where
+module MHasql.TH.Construction.Exp
+  ( byteString
+  , contrazip
+  , cozip
+  , foldStatement
+  , multidimensionalColumnDecoder
+  , multidimensionalParamEncoder
+  , noResultResultDecoder
+  , rowMaybeResultDecoder
+  , rowVectorResultDecoder
+  , rowsAffectedResultDecoder
+  , singleRowResultDecoder
+  , statement
+  , unidimensionalColumnDecoder
+  , unidimensionalParamEncoder
+  )
+where
 
 import Language.Haskell.TH.Syntax
 import MHasql.TH.Prelude
@@ -28,27 +44,6 @@ byteString x =
           LitE (StringPrimL (ByteString.unpack x))
         ]
     ]
-
-integral :: Integral a => a -> Exp
-integral x = LitE (IntegerL (fromIntegral x))
-
-list :: (a -> Exp) -> [a] -> Exp
-list renderer x = ListE (map renderer x)
-
-string :: String -> Exp
-string x = LitE (StringL x)
-
-char :: Char -> Exp
-char x = LitE (CharL x)
-
-sequence_ :: [Exp] -> Exp
-sequence_ = foldl' andThen pureUnit
-
-pureUnit :: Exp
-pureUnit = AppE (VarE 'pure) (TupE [])
-
-andThen :: Exp -> Exp -> Exp
-andThen exp = AppE (AppE (VarE '(*>)) exp)
 
 tuple :: Int -> Exp
 tuple = ConE . tupleDataName
@@ -170,9 +165,6 @@ applyArrayDimensionalityToEncoder levels =
   if levels > 0
     then AppE (AppE (VarE 'Encoders.dimension) (VarE 'Vector.foldl')) . applyArrayDimensionalityToEncoder (pred levels)
     else AppE (VarE 'Encoders.element)
-
-rowDecoder :: [Exp] -> Exp
-rowDecoder = cozip
 
 unidimensionalColumnDecoder :: Exp -> Exp
 unidimensionalColumnDecoder =

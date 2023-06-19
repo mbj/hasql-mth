@@ -2,7 +2,7 @@
 
 -- |
 -- AST traversal extracting output types.
-module MHasql.TH.Extraction.OutputTypeList where
+module MHasql.TH.Extraction.OutputTypeList (preparableStmt) where
 
 import MHasql.TH.Prelude
 import PostgresqlSyntax.Ast
