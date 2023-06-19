@@ -14,12 +14,12 @@ import Language.Haskell.TH.Quote
 import Language.Haskell.TH.Syntax
 import MHasql.TH.Prelude
 
-import qualified Data.Text as Text
-import qualified Data.Text.Encoding as Text
+import qualified Data.Text                  as Text
+import qualified Data.Text.Encoding         as Text
 import qualified MHasql.TH.Construction.Exp as Exp
-import qualified MHasql.TH.Extraction.Exp as ExpExtraction
-import qualified PostgresqlSyntax.Ast as Ast
-import qualified PostgresqlSyntax.Parsing as Parsing
+import qualified MHasql.TH.Extraction.Exp   as ExpExtraction
+import qualified PostgresqlSyntax.Ast       as Ast
+import qualified PostgresqlSyntax.Parsing   as Parsing
 
 -- * Helpers
 

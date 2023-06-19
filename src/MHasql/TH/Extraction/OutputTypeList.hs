@@ -45,15 +45,16 @@ selectStmt = \case
 selectNoParens (SelectNoParens _ a _ _ _) = selectClause a
 
 selectWithParens = \case
-  NoParensSelectWithParens a -> selectNoParens a
+  NoParensSelectWithParens a   -> selectNoParens a
   WithParensSelectWithParens a -> selectWithParens a
 
 selectClause = either simpleSelect selectWithParens
 
 simpleSelect = \case
   NormalSimpleSelect a _ _ _ _ _ _ -> foldable targeting a
-  ValuesSimpleSelect a -> valuesClause a
-  TableSimpleSelect _ -> Left "TABLE cannot be used as a final statement, since it's impossible to specify the output types"
+  ValuesSimpleSelect a             -> valuesClause a
+  TableSimpleSelect _ -> Left
+    "TABLE cannot be used as a final statement, since it's impossible to specify the output types"
   BinSimpleSelect _ a _ b -> do
     c <- selectClause a
     d <- selectClause b
@@ -62,17 +63,17 @@ simpleSelect = \case
       else Left "Merged queries produce results of incompatible types"
 
 targeting = \case
-  NormalTargeting a -> targetList a
-  AllTargeting a -> foldable targetList a
+  NormalTargeting a     -> targetList a
+  AllTargeting a        -> foldable targetList a
   DistinctTargeting _ b -> targetList b
 
 targetList = foldable targetEl
 
 targetEl = \case
-  AliasedExprTargetEl a _ -> aExpr a
+  AliasedExprTargetEl a _           -> aExpr a
   ImplicitlyAliasedExprTargetEl a _ -> aExpr a
-  ExprTargetEl a -> aExpr a
-  AsteriskTargetEl ->
+  ExprTargetEl a                    -> aExpr a
+  AsteriskTargetEl                  ->
     Left
       "Target of all fields is not allowed, \
       \because it leaves the output types unspecified. \
@@ -81,10 +82,10 @@ targetEl = \case
 valuesClause = foldable (foldable aExpr)
 
 aExpr = \case
-  CExprAExpr a -> cExpr a
+  CExprAExpr a      -> cExpr a
   TypecastAExpr _ a -> Right [a]
-  _a -> Left "Result expression is missing a typecast"
+  _a                -> Left "Result expression is missing a typecast"
 
 cExpr = \case
   InParensCExpr a Nothing -> aExpr a
-  _a -> Left "Result expression is missing a typecast"
+  _a                      -> Left "Result expression is missing a typecast"
