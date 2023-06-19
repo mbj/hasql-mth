@@ -1,6 +1,6 @@
 {-# OPTIONS -Wno-missing-signatures #-}
 
-module MHasql.TH.Extraction.PrimitiveType where
+module MHasql.TH.Extraction.PrimitiveType (PrimitiveType(..), simpleTypename) where
 
 import MHasql.TH.Prelude
 import PostgresqlSyntax.Ast

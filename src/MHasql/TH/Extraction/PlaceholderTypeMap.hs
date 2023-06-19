@@ -1,6 +1,6 @@
 {-# OPTIONS -Wno-missing-signatures #-}
 
-module MHasql.TH.Extraction.PlaceholderTypeMap where
+module MHasql.TH.Extraction.PlaceholderTypeMap (preparableStmt) where
 
 import MHasql.TH.Extraction.ChildExprList (ChildExpr (..))
 import MHasql.TH.Prelude

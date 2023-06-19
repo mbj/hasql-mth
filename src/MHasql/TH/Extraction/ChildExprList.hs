@@ -1,5 +1,13 @@
 {-# OPTIONS -Wno-missing-signatures #-}
-module MHasql.TH.Extraction.ChildExprList where
+
+module MHasql.TH.Extraction.ChildExprList
+  ( ChildExpr(..)
+  , aChildExpr
+  , bChildExpr
+  , cChildExpr
+  , preparableStmt
+  )
+where
 
 import MHasql.TH.Prelude
 import PostgresqlSyntax.Ast
@@ -10,14 +18,6 @@ data ChildExpr = AChildExpr AExpr | BChildExpr BExpr | CChildExpr CExpr
   deriving (Show, Eq, Ord)
 
 -- *
-
--- |
--- Dives one level of recursion.
-childExpr = \case
-  AChildExpr a -> aChildExpr a
-  BChildExpr a -> bChildExpr a
-  CChildExpr a -> cChildExpr a
-
 aChildExpr = \case
   CExprAExpr a                    -> cChildExpr a
   TypecastAExpr a b               -> aExpr a <> typename b
@@ -586,8 +586,6 @@ simpleTypename = \case
   CharacterSimpleTypename a     -> character a
   ConstDatetimeSimpleTypename a -> constDatetime a
   ConstIntervalSimpleTypename a -> either (foldMap interval) (const []) a
-
-arrayBounds _ = []
 
 genericType (GenericType a b c) = typeFunctionName a <> foldMap attrs b <> foldMap typeModifiers c
 
