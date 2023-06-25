@@ -13,6 +13,7 @@ main = Test.DocTest.doctest
   , "-XNoMonomorphismRestriction"
   , "-XOverloadedStrings"
   , "-XQuasiQuotes"
+  , "-XRecordWildCards"
   , "-XScopedTypeVariables"
   , "-XTemplateHaskell"
   , "-XTupleSections"

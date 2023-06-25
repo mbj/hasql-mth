@@ -12,6 +12,7 @@ where
 
 import Language.Haskell.TH.Quote
 import Language.Haskell.TH.Syntax
+import MHasql.TH.Codec
 import MHasql.TH.Prelude
 
 import qualified Data.Text                  as Text
@@ -80,7 +81,7 @@ expPreparableStmtAstParser parser =
 --   |      ^
 -- ...
 singletonStatement :: QuasiQuoter
-singletonStatement = expPreparableStmtAstParser (ExpExtraction.undecodedStatement Exp.singleRowResultDecoder)
+singletonStatement = expPreparableStmtAstParser (ExpExtraction.undecodedStatement findCodec Exp.singleRowResultDecoder)
 
 -- |
 -- @
@@ -95,7 +96,7 @@ singletonStatement = expPreparableStmtAstParser (ExpExtraction.undecodedStatemen
 -- ...
 -- ... :: Statement () (Maybe (Maybe Int16))
 maybeStatement :: QuasiQuoter
-maybeStatement = expPreparableStmtAstParser (ExpExtraction.undecodedStatement Exp.rowMaybeResultDecoder)
+maybeStatement = expPreparableStmtAstParser (ExpExtraction.undecodedStatement findCodec Exp.rowMaybeResultDecoder)
 
 -- |
 -- @
@@ -110,7 +111,7 @@ maybeStatement = expPreparableStmtAstParser (ExpExtraction.undecodedStatement Ex
 -- ...
 -- ... :: Statement () (Vector (Maybe Int16))
 vectorStatement :: QuasiQuoter
-vectorStatement = expPreparableStmtAstParser (ExpExtraction.undecodedStatement Exp.rowVectorResultDecoder)
+vectorStatement = expPreparableStmtAstParser (ExpExtraction.undecodedStatement findCodec Exp.rowVectorResultDecoder)
 
 -- |
 -- @
@@ -126,7 +127,7 @@ vectorStatement = expPreparableStmtAstParser (ExpExtraction.undecodedStatement E
 -- ...
 -- ... :: Fold (Maybe Int16) b -> Statement () b
 foldStatement :: QuasiQuoter
-foldStatement = expPreparableStmtAstParser ExpExtraction.foldStatement
+foldStatement = expPreparableStmtAstParser (ExpExtraction.foldStatement findCodec)
 
 -- |
 -- @
@@ -141,7 +142,7 @@ foldStatement = expPreparableStmtAstParser ExpExtraction.foldStatement
 -- ...
 -- ... :: Statement (Maybe Text, Maybe Text) ()
 resultlessStatement :: QuasiQuoter
-resultlessStatement = expPreparableStmtAstParser (ExpExtraction.undecodedStatement (const Exp.noResultResultDecoder))
+resultlessStatement = expPreparableStmtAstParser (ExpExtraction.undecodedStatement findCodec (const Exp.noResultResultDecoder))
 
 -- |
 -- @
@@ -156,7 +157,7 @@ resultlessStatement = expPreparableStmtAstParser (ExpExtraction.undecodedStateme
 -- ...
 -- ... :: Statement () Int64
 rowsAffectedStatement :: QuasiQuoter
-rowsAffectedStatement = expPreparableStmtAstParser (ExpExtraction.undecodedStatement (const Exp.rowsAffectedResultDecoder))
+rowsAffectedStatement = expPreparableStmtAstParser (ExpExtraction.undecodedStatement findCodec (const Exp.rowsAffectedResultDecoder))
 
 -- * SQL ByteStrings
 

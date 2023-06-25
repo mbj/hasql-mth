@@ -17,6 +17,7 @@ default-extensions:
 - NoMonomorphismRestriction
 - OverloadedStrings
 - QuasiQuotes
+- RecordWildCards
 - ScopedTypeVariables
 - TemplateHaskell
 - TupleSections
@@ -59,16 +60,8 @@ when:
 library:
   source-dirs: src
   exposed-modules:
-    MHasql.TH
-  other-modules:
-    MHasql.TH.Construction.Exp
-    MHasql.TH.Extraction.ChildExprList
-    MHasql.TH.Extraction.Exp
-    MHasql.TH.Extraction.InputTypeList
-    MHasql.TH.Extraction.OutputTypeList
-    MHasql.TH.Extraction.PlaceholderTypeMap
-    MHasql.TH.Extraction.PrimitiveType
-    MHasql.TH.Prelude
+  - MHasql.TH
+  - MHasql.TH.Codec
 
 tests:
   test:
