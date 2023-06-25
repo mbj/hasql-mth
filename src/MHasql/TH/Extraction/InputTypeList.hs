@@ -14,7 +14,7 @@ import qualified MHasql.TH.Extraction.PlaceholderTypeMap as PlaceholderTypeMap
 
 -- |
 -- >>> import qualified PostgresqlSyntax.Parsing as P
--- >>> test = either fail (return . preparableStmt) . P.run P.preparableStmt
+-- >>> test = either fail (pure . preparableStmt) . P.run P.preparableStmt
 --
 -- >>> test "select $1 :: INT"
 -- Right [Typename False (NumericSimpleTypename IntNumeric) Nothing]

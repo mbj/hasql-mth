@@ -30,7 +30,7 @@ exp =
 
 expParser :: (Text -> Either Text Exp) -> QuasiQuoter
 expParser parser =
-  exp $ \inputString -> either (fail . Text.unpack) return $ parser $ fromString inputString
+  exp $ \inputString -> either (fail . Text.unpack) pure $ parser $ fromString inputString
 
 expPreparableStmtAstParser :: (Text -> Ast.PreparableStmt -> Either Text Exp) -> QuasiQuoter
 expPreparableStmtAstParser parser =
@@ -164,7 +164,7 @@ rowsAffectedStatement = expPreparableStmtAstParser (ExpExtraction.undecodedState
 -- Quoter of a multiline Unicode SQL string,
 -- which gets converted into a format ready to be used for declaration of statements.
 uncheckedSql :: QuasiQuoter
-uncheckedSql = exp $ return . Exp.byteString . Text.encodeUtf8 . fromString
+uncheckedSql = exp $ pure . Exp.byteString . Text.encodeUtf8 . fromString
 
 -- |
 -- Read an SQL-file, containing multiple statements,

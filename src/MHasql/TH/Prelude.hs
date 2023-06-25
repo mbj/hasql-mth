@@ -7,7 +7,7 @@ where
 import Control.Applicative                  as Exports (Alternative, (*>), (<*>), (<|>), pure)
 import Control.Category                     as Exports ((.), (>>>))
 import Control.Foldl                        as Exports (Fold (..))
-import Control.Monad                        as Exports (Monad, (<=<), foldM, join, return, zipWithM)
+import Control.Monad                        as Exports (Monad, (<=<), foldM, join, zipWithM)
 import Control.Monad.Fail                   as Exports (fail)
 import Data.Bifunctor                       as Exports (first)
 import Data.Bool                            as Exports (Bool(..))

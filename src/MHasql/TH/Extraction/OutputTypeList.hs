@@ -59,7 +59,7 @@ simpleSelect = \case
     c <- selectClause a
     d <- selectClause b
     if c == d
-      then return c
+      then pure c
       else Left "Merged queries produce results of incompatible types"
 
 targeting = \case

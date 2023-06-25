@@ -20,25 +20,25 @@ undecodedStatement :: (Exp -> Exp) -> Text -> Ast.PreparableStmt -> Either Text 
 undecodedStatement decoderProj sql ast = do
   encoder     <- paramsEncoder ast
   rowDecoder' <- rowDecoder ast
-  return (Exp.statement (Exp.byteString $ Text.encodeUtf8 sql) encoder (decoderProj rowDecoder'))
+  pure (Exp.statement (Exp.byteString $ Text.encodeUtf8 sql) encoder (decoderProj rowDecoder'))
 
 foldStatement :: Text -> Ast.PreparableStmt -> Either Text Exp
 foldStatement sql ast = do
   encoder     <- paramsEncoder ast
   rowDecoder' <- rowDecoder ast
-  return (Exp.foldStatement (Exp.byteString $ Text.encodeUtf8 sql) encoder rowDecoder')
+  pure (Exp.foldStatement (Exp.byteString $ Text.encodeUtf8 sql) encoder rowDecoder')
 
 paramsEncoder :: Ast.PreparableStmt -> Either Text Exp
 paramsEncoder a = do
   b <- InputTypeList.preparableStmt a
   c <- traverse paramEncoder b
-  return (Exp.contrazip c)
+  pure (Exp.contrazip c)
 
 rowDecoder :: Ast.PreparableStmt -> Either Text Exp
 rowDecoder a = do
   b <- OutputTypeList.preparableStmt a
   c <- traverse columnDecoder b
-  return (Exp.cozip c)
+  pure (Exp.cozip c)
 
 paramEncoder :: Ast.Typename -> Either Text Exp
 paramEncoder =

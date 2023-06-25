@@ -80,10 +80,10 @@ contrazip = \case
 -- constructs an expression, which composes them together into
 -- a single applicative functor, parameterized by a tuple of according arity.
 --
--- >>> $(return (cozip [])) :: Maybe ()
+-- >>> $(pure (cozip [])) :: Maybe ()
 -- Just ()
 --
--- >>> $(return (cozip (fmap (AppE (ConE 'Just) . LitE . IntegerL) [1,2,3]))) :: Maybe (Int, Int, Int)
+-- >>> $(pure (cozip (fmap (AppE (ConE 'Just) . LitE . IntegerL) [1,2,3]))) :: Maybe (Int, Int, Int)
 -- Just (1,2,3)
 cozip :: [Exp] -> Exp
 cozip = \case
