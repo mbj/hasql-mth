@@ -81,6 +81,7 @@ tests:
     - mprelude
     - tasty
     - tasty-hunit
+    - unliftio
   doctest:
     source-dirs: test/doctest
     main: Main.hs

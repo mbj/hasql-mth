@@ -1,8 +1,18 @@
 module MHasql.TH.Codec
   ( Codec(..)
+  , bool
+  , bytea
+  , customFindCodec
   , findCodec
+  , genericName
+  , json
+  , jsonb
   , mkDecoderNullable
   , mkEncoderNullable
+  , numeric
+  , setNonNull
+  , timestamp
+  , uuid
   )
 where
 
@@ -24,22 +34,25 @@ data Codec = Codec
   }
 
 findCodec :: SimpleTypename -> Either Text Codec
-findCodec = \case
-  GenericTypeSimpleTypename a   -> genericType a
+findCodec = customFindCodec genericName
+
+customFindCodec :: (Text -> Either Text Codec) -> SimpleTypename -> Either Text Codec
+customFindCodec findGenericName = \case
+  GenericTypeSimpleTypename a   -> genericType findGenericName a
   NumericSimpleTypename a       -> numericType a
   BitSimpleTypename{}           -> Left "Bit codec is not supported"
   CharacterSimpleTypename{}     -> pure char
   ConstDatetimeSimpleTypename a -> constDatetime a
   ConstIntervalSimpleTypename{} -> pure interval
 
-genericType :: GenericType -> Either Text Codec
-genericType (GenericType ident attributes modifiers) = case attributes of
+genericType :: (Text -> Either Text Codec) -> GenericType -> Either Text Codec
+genericType findGenericName (GenericType ident attributes modifiers) = case attributes of
   Just _  -> Left "Type attributes are not supported"
   Nothing -> case modifiers of
     Just _  -> Left "Type modifiers are not supported"
     Nothing -> case ident of
-      QuotedIdent name   -> genericName name
-      UnquotedIdent name -> genericName name
+      QuotedIdent name   -> findGenericName name
+      UnquotedIdent name -> findGenericName name
 
 numericType :: Numeric -> Either Text Codec
 numericType = \case
@@ -134,3 +147,11 @@ mkDecoderNonNullable = TH.AppE $ TH.VarE 'Decoders.nonNullable
 mkDecoderNullable    = TH.AppE $ TH.VarE 'Decoders.nullable
 mkEncoderNonNullable = TH.AppE $ TH.VarE 'Encoders.nonNullable
 mkEncoderNullable    = TH.AppE $ TH.VarE 'Encoders.nullable
+
+setNonNull :: Codec -> Codec
+setNonNull Codec{..} =
+  Codec
+  { mkDecoderNullability = mkDecoderNonNullable
+  , mkEncoderNullability = mkEncoderNonNullable
+  , ..
+  }
