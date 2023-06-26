@@ -12,7 +12,6 @@ where
 
 import Language.Haskell.TH.Quote
 import Language.Haskell.TH.Syntax
-import MHasql.TH.Codec
 import MHasql.TH.Prelude
 
 import qualified Data.Text                  as Text
@@ -43,6 +42,13 @@ expPreparableStmtAstParser parser =
 -- >>> import Data.Int
 -- >>> import Data.Vector
 -- >>> import Hasql.Statement
+-- >>> import MHasql.TH.Codec
+-- >>> foldStatement'         = foldStatement         findCodec
+-- >>> maybeStatement'        = maybeStatement        findCodec
+-- >>> resultlessStatement'   = resultlessStatement   findCodec
+-- >>> rowsAffectedStatement' = rowsAffectedStatement findCodec
+-- >>> singletonStatement'    = singletonStatement    findCodec
+-- >>> vectorStatement'       = vectorStatement       findCodec
 
 -- * Statement
 
@@ -58,12 +64,12 @@ expPreparableStmtAstParser parser =
 --
 -- === __Examples__
 --
--- >>> :t [singletonStatement|select 1 :: int2|]
+-- >>> :t [singletonStatement'|select 1 :: int2|]
 -- ...
 -- ... :: Statement () (Maybe Int16)
 --
 -- >>> :{
---   :t [singletonStatement|
+--   :t [singletonStatement'|
 --        insert into "user" (email, name)
 --        values ($1 :: text, $2 :: text)
 --        returning id :: int4
@@ -74,14 +80,14 @@ expPreparableStmtAstParser parser =
 --
 -- Incorrect SQL:
 --
--- >>> :t [singletonStatement|elect 1|]
+-- >>> :t [singletonStatement'|elect 1|]
 -- ...
 --   |
 -- 1 | elect 1
 --   |      ^
 -- ...
-singletonStatement :: QuasiQuoter
-singletonStatement = expPreparableStmtAstParser (ExpExtraction.undecodedStatement findCodec Exp.singleRowResultDecoder)
+singletonStatement :: ExpExtraction.FindCodec -> QuasiQuoter
+singletonStatement findCodec = expPreparableStmtAstParser (ExpExtraction.undecodedStatement findCodec Exp.singleRowResultDecoder)
 
 -- |
 -- @
@@ -92,11 +98,11 @@ singletonStatement = expPreparableStmtAstParser (ExpExtraction.undecodedStatemen
 --
 -- === __Examples__
 --
--- >>> :t [maybeStatement|select 1 :: int2|]
+-- >>> :t [maybeStatement'|select 1 :: int2|]
 -- ...
 -- ... :: Statement () (Maybe (Maybe Int16))
-maybeStatement :: QuasiQuoter
-maybeStatement = expPreparableStmtAstParser (ExpExtraction.undecodedStatement findCodec Exp.rowMaybeResultDecoder)
+maybeStatement :: ExpExtraction.FindCodec -> QuasiQuoter
+maybeStatement findCodec = expPreparableStmtAstParser (ExpExtraction.undecodedStatement findCodec Exp.rowMaybeResultDecoder)
 
 -- |
 -- @
@@ -107,11 +113,11 @@ maybeStatement = expPreparableStmtAstParser (ExpExtraction.undecodedStatement fi
 --
 -- === __Examples__
 --
--- >>> :t [vectorStatement|select 1 :: int2|]
+-- >>> :t [vectorStatement'|select 1 :: int2|]
 -- ...
 -- ... :: Statement () (Vector (Maybe Int16))
-vectorStatement :: QuasiQuoter
-vectorStatement = expPreparableStmtAstParser (ExpExtraction.undecodedStatement findCodec Exp.rowVectorResultDecoder)
+vectorStatement :: ExpExtraction.FindCodec -> QuasiQuoter
+vectorStatement findCodec = expPreparableStmtAstParser (ExpExtraction.undecodedStatement findCodec Exp.rowVectorResultDecoder)
 
 -- |
 -- @
@@ -123,11 +129,11 @@ vectorStatement = expPreparableStmtAstParser (ExpExtraction.undecodedStatement f
 --
 -- === __Examples__
 --
--- >>> :t [foldStatement|SELECT 1 :: int2|]
+-- >>> :t [foldStatement'|SELECT 1 :: int2|]
 -- ...
 -- ... :: Fold (Maybe Int16) b -> Statement () b
-foldStatement :: QuasiQuoter
-foldStatement = expPreparableStmtAstParser (ExpExtraction.foldStatement findCodec)
+foldStatement :: ExpExtraction.FindCodec ->  QuasiQuoter
+foldStatement findCodec = expPreparableStmtAstParser (ExpExtraction.foldStatement findCodec)
 
 -- |
 -- @
@@ -138,11 +144,11 @@ foldStatement = expPreparableStmtAstParser (ExpExtraction.foldStatement findCode
 --
 -- === __Examples__
 --
--- >>> :t [resultlessStatement|insert into "user" (name, email) values ($1 :: text, $2 :: text)|]
+-- >>> :t [resultlessStatement'|insert into "user" (name, email) values ($1 :: text, $2 :: text)|]
 -- ...
 -- ... :: Statement (Maybe Text, Maybe Text) ()
-resultlessStatement :: QuasiQuoter
-resultlessStatement = expPreparableStmtAstParser (ExpExtraction.undecodedStatement findCodec (const Exp.noResultResultDecoder))
+resultlessStatement :: ExpExtraction.FindCodec -> QuasiQuoter
+resultlessStatement findCodec = expPreparableStmtAstParser (ExpExtraction.undecodedStatement findCodec (const Exp.noResultResultDecoder))
 
 -- |
 -- @
@@ -153,11 +159,11 @@ resultlessStatement = expPreparableStmtAstParser (ExpExtraction.undecodedStateme
 --
 -- === __Examples__
 --
--- >>> :t [rowsAffectedStatement|delete from "user" where password is null|]
+-- >>> :t [rowsAffectedStatement'|delete from "user" where password is null|]
 -- ...
 -- ... :: Statement () Int64
-rowsAffectedStatement :: QuasiQuoter
-rowsAffectedStatement = expPreparableStmtAstParser (ExpExtraction.undecodedStatement findCodec (const Exp.rowsAffectedResultDecoder))
+rowsAffectedStatement :: ExpExtraction.FindCodec -> QuasiQuoter
+rowsAffectedStatement findCodec = expPreparableStmtAstParser (ExpExtraction.undecodedStatement findCodec (const Exp.rowsAffectedResultDecoder))
 
 -- * SQL ByteStrings
 
@@ -183,16 +189,16 @@ uncheckedSqlFile = quoteFile uncheckedSql
 -- * Tests
 
 -- $
--- >>> :t [maybeStatement| select (password = $2 :: bytea) :: bool, id :: int4 from "user" where "email" = $1 :: text |]
+-- >>> :t [maybeStatement'| select (password = $2 :: bytea) :: bool, id :: int4 from "user" where "email" = $1 :: text |]
 -- ...
 -- ... Statement
 -- ...   (Maybe Text, Maybe ByteString) (Maybe (Maybe Bool, Maybe Int32))
 --
--- >>> :t [maybeStatement| select id :: int4 from application where pub_key = $1 :: uuid and sec_key_pt1 = $2 :: int8 and sec_key_pt2 = $3 :: int8 |]
+-- >>> :t [maybeStatement'| select id :: int4 from application where pub_key = $1 :: uuid and sec_key_pt1 = $2 :: int8 and sec_key_pt2 = $3 :: int8 |]
 -- ...
 -- ... Statement
 -- ...   (Maybe UUID, Maybe Int64, Maybe Int64) (Maybe (Maybe Int32))
 --
--- >>> :t [singletonStatement| select 1 :: int4 from a left join b on b.id = a.id |]
+-- >>> :t [singletonStatement'| select 1 :: int4 from a left join b on b.id = a.id |]
 -- ...
 -- ... Statement () (Maybe Int32)
