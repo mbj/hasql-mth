@@ -30,8 +30,16 @@ flag development
 library
   exposed-modules:
       MHasql.TH
+      MHasql.TH.Codec
   other-modules:
-      MHasql.TH.Construction.Exp MHasql.TH.Extraction.ChildExprList MHasql.TH.Extraction.Exp MHasql.TH.Extraction.InputTypeList MHasql.TH.Extraction.OutputTypeList MHasql.TH.Extraction.PlaceholderTypeMap MHasql.TH.Extraction.PrimitiveType MHasql.TH.Prelude
+      MHasql.TH.Construction.Exp
+      MHasql.TH.Extraction.ChildExprList
+      MHasql.TH.Extraction.Exp
+      MHasql.TH.Extraction.InputTypeList
+      MHasql.TH.Extraction.OutputTypeList
+      MHasql.TH.Extraction.PlaceholderTypeMap
+      MHasql.TH.Prelude
+      Paths_mhasql_th
   hs-source-dirs:
       src
   default-extensions:
@@ -41,6 +49,7 @@ library
       NoMonomorphismRestriction
       OverloadedStrings
       QuasiQuotes
+      RecordWildCards
       ScopedTypeVariables
       TemplateHaskell
       TupleSections
@@ -81,6 +90,7 @@ test-suite doctest
       NoMonomorphismRestriction
       OverloadedStrings
       QuasiQuotes
+      RecordWildCards
       ScopedTypeVariables
       TemplateHaskell
       TupleSections
@@ -123,6 +133,7 @@ test-suite test
       NoMonomorphismRestriction
       OverloadedStrings
       QuasiQuotes
+      RecordWildCards
       ScopedTypeVariables
       TemplateHaskell
       TupleSections

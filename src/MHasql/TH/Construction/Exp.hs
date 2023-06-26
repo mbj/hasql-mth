@@ -19,6 +19,7 @@ module MHasql.TH.Construction.Exp
 where
 
 import Language.Haskell.TH.Syntax
+import MHasql.TH.Codec
 import MHasql.TH.Prelude
 
 import qualified Data.ByteString              as ByteString
@@ -142,23 +143,21 @@ foldResultDecoder :: Exp -> Exp -> Exp -> Exp -> Exp
 foldResultDecoder step init extract rowDecoder' =
   appList (VarE 'fmap) [extract, appList (VarE 'Decoders.foldlRows) [step, init, rowDecoder']]
 
-unidimensionalParamEncoder :: Exp -> Exp
-unidimensionalParamEncoder =
-  applyParamToEncoder . applyNullabilityToEncoder True
-
-multidimensionalParamEncoder :: Int -> Exp -> Exp
-multidimensionalParamEncoder dimensionality
+unidimensionalParamEncoder :: Codec -> Exp
+unidimensionalParamEncoder Codec{..}
   = applyParamToEncoder
-  . applyNullabilityToEncoder True
+  $ mkEncoderNullability encoder
+
+multidimensionalParamEncoder :: Codec -> Int -> Exp
+multidimensionalParamEncoder Codec{..} dimensionality
+  = applyParamToEncoder
+  . mkEncoderNullable
   . AppE (VarE 'Encoders.array)
   . applyArrayDimensionalityToEncoder dimensionality
-  . applyNullabilityToEncoder True
+  $ mkEncoderNullability encoder
 
 applyParamToEncoder :: Exp -> Exp
 applyParamToEncoder = AppE (VarE 'Encoders.param)
-
-applyNullabilityToEncoder :: Bool -> Exp -> Exp
-applyNullabilityToEncoder nullable = AppE (VarE (if nullable then 'Encoders.nullable else 'Encoders.nonNullable))
 
 applyArrayDimensionalityToEncoder :: Int -> Exp -> Exp
 applyArrayDimensionalityToEncoder levels =
@@ -166,23 +165,20 @@ applyArrayDimensionalityToEncoder levels =
     then AppE (AppE (VarE 'Encoders.dimension) (VarE 'Vector.foldl')) . applyArrayDimensionalityToEncoder (pred levels)
     else AppE (VarE 'Encoders.element)
 
-unidimensionalColumnDecoder :: Exp -> Exp
-unidimensionalColumnDecoder =
-  applyColumnToDecoder . applyNullabilityToDecoder True
+unidimensionalColumnDecoder :: Codec -> Exp
+unidimensionalColumnDecoder Codec{..}
+  = applyColumnToDecoder $ mkDecoderNullability decoder
 
-multidimensionalColumnDecoder :: Int -> Exp -> Exp
-multidimensionalColumnDecoder dimensionality
+multidimensionalColumnDecoder :: Codec -> Int -> Exp
+multidimensionalColumnDecoder Codec{..} dimensionality
   = applyColumnToDecoder
-  . applyNullabilityToDecoder True
+  . mkDecoderNullable
   . AppE (VarE 'Decoders.array)
   . applyArrayDimensionalityToDecoder dimensionality
-  . applyNullabilityToDecoder True
+  $ mkEncoderNullability decoder
 
 applyColumnToDecoder :: Exp -> Exp
 applyColumnToDecoder = AppE (VarE 'Decoders.column)
-
-applyNullabilityToDecoder :: Bool -> Exp -> Exp
-applyNullabilityToDecoder nullable = AppE (VarE (if nullable then 'Decoders.nullable else 'Decoders.nonNullable))
 
 applyArrayDimensionalityToDecoder :: Int -> Exp -> Exp
 applyArrayDimensionalityToDecoder levels =
