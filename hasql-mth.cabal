@@ -4,13 +4,13 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 
-name:           mhasql-th
+name:           hasql-mth
 version:        0.5.0
 synopsis:       Template Haskell integration for hasql.
 description:    Fork of official hasql-th with different type generation trade offs.
 category:       Hasql, Database, PostgreSQL, Template Haskell
-homepage:       https://github.com/mbj/mhasql-th#readme
-bug-reports:    https://github.com/mbj/mhasql-th/issues
+homepage:       https://github.com/mbj/hasql-mth#readme
+bug-reports:    https://github.com/mbj/hasql-mth/issues
 author:         Markus Schirp <mbj@schirp-dso.com>
 maintainer:     Markus Schirp <mbj@schirp-dso.com>
 copyright:      (c) 2023 Markus Schirp, (c) 2015, Nikita Volkov
@@ -20,7 +20,7 @@ build-type:     Simple
 
 source-repository head
   type: git
-  location: https://github.com/mbj/mhasql-th
+  location: https://github.com/mbj/hasql-mth
 
 flag development
   description: Run GHC with development flags
@@ -29,17 +29,17 @@ flag development
 
 library
   exposed-modules:
-      MHasql.TH
-      MHasql.TH.Codec
+      Hasql.MTH
+      Hasql.MTH.Codec
   other-modules:
-      MHasql.TH.Construction.Exp
-      MHasql.TH.Extraction.ChildExprList
-      MHasql.TH.Extraction.Exp
-      MHasql.TH.Extraction.InputTypeList
-      MHasql.TH.Extraction.OutputTypeList
-      MHasql.TH.Extraction.PlaceholderTypeMap
-      MHasql.TH.Prelude
-      Paths_mhasql_th
+      Hasql.MTH.Construction.Exp
+      Hasql.MTH.Extraction.ChildExprList
+      Hasql.MTH.Extraction.Exp
+      Hasql.MTH.Extraction.InputTypeList
+      Hasql.MTH.Extraction.OutputTypeList
+      Hasql.MTH.Extraction.PlaceholderTypeMap
+      Hasql.MTH.Prelude
+      Paths_hasql_mth
   hs-source-dirs:
       src
   default-extensions:
@@ -80,7 +80,7 @@ test-suite doctest
   type: exitcode-stdio-1.0
   main-is: Main.hs
   other-modules:
-      Paths_mhasql_th
+      Paths_hasql_mth
   hs-source-dirs:
       test/doctest
   default-extensions:
@@ -103,7 +103,7 @@ test-suite doctest
     , doctest
     , foldl
     , hasql
-    , mhasql-th
+    , hasql-mth
     , postgresql-syntax
     , tasty-mgolden
     , template-haskell
@@ -124,7 +124,7 @@ test-suite test
   main-is: Main.hs
   other-modules:
       Test.Database
-      Paths_mhasql_th
+      Paths_hasql_mth
   hs-source-dirs:
       test
   default-extensions:
@@ -149,7 +149,7 @@ test-suite test
     , devtools
     , foldl
     , hasql
-    , mhasql-th
+    , hasql-mth
     , mio-core
     , mprelude
     , postgresql-syntax

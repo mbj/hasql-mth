@@ -1,4 +1,4 @@
-module MHasql.TH.Codec
+module Hasql.MTH.Codec
   ( Codec(..)
   , bool
   , bytea
@@ -17,7 +17,7 @@ module MHasql.TH.Codec
 where
 
 import Data.Maybe (fromMaybe)
-import MHasql.TH.Prelude
+import Hasql.MTH.Prelude
 import PostgresqlSyntax.Ast
 
 import qualified Hasql.Decoders      as Decoders

@@ -1,16 +1,16 @@
 -- |
 -- AST traversal extracting input types.
-module MHasql.TH.Extraction.InputTypeList
+module Hasql.MTH.Extraction.InputTypeList
   ( preparableStmt
   )
 where
 
 import Data.Functor (($>))
-import MHasql.TH.Prelude
+import Hasql.MTH.Prelude
 import PostgresqlSyntax.Ast
 
 import qualified Data.IntMap.Strict as IntMap
-import qualified MHasql.TH.Extraction.PlaceholderTypeMap as PlaceholderTypeMap
+import qualified Hasql.MTH.Extraction.PlaceholderTypeMap as PlaceholderTypeMap
 
 -- |
 -- >>> import qualified PostgresqlSyntax.Parsing as P

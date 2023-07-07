@@ -1,19 +1,19 @@
-module MHasql.TH.Extraction.Exp
+module Hasql.MTH.Extraction.Exp
   ( FindCodec
   , foldStatement
   , undecodedStatement
   )
 where
 
+import Hasql.MTH.Codec (Codec)
+import Hasql.MTH.Prelude
 import Language.Haskell.TH
-import MHasql.TH.Codec (Codec)
-import MHasql.TH.Prelude
 import Prelude (otherwise)
 
 import qualified Data.Text.Encoding                  as Text
-import qualified MHasql.TH.Construction.Exp          as Exp
-import qualified MHasql.TH.Extraction.InputTypeList  as InputTypeList
-import qualified MHasql.TH.Extraction.OutputTypeList as OutputTypeList
+import qualified Hasql.MTH.Construction.Exp          as Exp
+import qualified Hasql.MTH.Extraction.InputTypeList  as InputTypeList
+import qualified Hasql.MTH.Extraction.OutputTypeList as OutputTypeList
 import qualified PostgresqlSyntax.Ast                as Ast
 
 type FindCodec = Ast.SimpleTypename -> Either Text Codec

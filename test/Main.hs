@@ -8,9 +8,9 @@ import qualified DBT.Connection     as DBT
 import qualified DBT.Container      as DBT
 import qualified Devtools
 import qualified Hasql.Connection   as Hasql
+import qualified Hasql.MTH          as Hasql
 import qualified Hasql.Session      as Hasql
 import qualified Hasql.Statement    as Hasql
-import qualified MHasql.TH          as MHasql
 import qualified Test.Database      as Test
 import qualified Test.Tasty         as Tasty
 import qualified Test.Tasty.HUnit   as Tasty
@@ -19,11 +19,11 @@ import qualified UnliftIO.Exception as Exception
 main :: IO ()
 main = do
   CBT.runDefaultEnvironment $ do
-    containerName <- CBT.Container.nextName (CBT.Container.Prefix "mhasql-test")
+    containerName <- CBT.Container.nextName (CBT.Container.Prefix "hasql-mth-test")
     DBT.withDatabaseContainerDefault containerName $ \clientConfig ->
       DBT.withConnection clientConfig $ \connection ->
-        liftIO . Tasty.defaultMain $ Tasty.testGroup "mhasql"
-          [ Devtools.testTree $$(Devtools.readDependencies [Devtools.Target "mhasql-th"])
+        liftIO . Tasty.defaultMain $ Tasty.testGroup "hasql-mth"
+          [ Devtools.testTree $$(Devtools.readDependencies [Devtools.Target "hasql-mth"])
           , testDB connection
           ]
 
@@ -32,7 +32,7 @@ testDB connection =
   Tasty.testCase "smoke test" $ do
     runSession
       $ Hasql.sql
-        [MHasql.uncheckedSql|
+        [Hasql.uncheckedSql|
           CREATE DOMAIN
             bool_not_null
           AS
