@@ -8,6 +8,7 @@ where
 import Language.Haskell.TH
 import MHasql.TH.Codec (Codec)
 import MHasql.TH.Prelude
+import Prelude (otherwise)
 
 import qualified Data.Text.Encoding                  as Text
 import qualified MHasql.TH.Construction.Exp          as Exp
@@ -55,13 +56,14 @@ byTypename
   -> (Codec -> Exp)
   -> (Codec -> Int -> Exp)
   -> Ast.Typename -> Either Text Exp
-byTypename findCodec unidimensional multidimensional (Ast.Typename setof simpleTypename dimensions) =
-  if setof
-    then Left "SETOF is not supported"
-    else do
-      codec' <- findCodec simpleTypename
-      pure $ maybe (unidimensional codec') (mkMultidimensional codec') dimensions
+byTypename findCodec unidimensional multidimensional (Ast.Typename setof simpleTypename questionMark dimensions)
+  | questionMark = Left "? type suffixes are not supported"
+  | setof        = Left "SETOF is not supported"
+  | otherwise = do
+    codec' <- findCodec simpleTypename
+    maybe (pure $ unidimensional codec') (mkMultidimensional codec') dimensions
   where
     mkMultidimensional codec' = \case
-      Ast.BoundsTypenameArrayDimensions h   -> multidimensional codec' (length h)
-      Ast.ExplicitTypenameArrayDimensions _ -> multidimensional codec' 1
+      (_, True) -> Left "? array type suffiexes are not supported"
+      (Ast.BoundsTypenameArrayDimensions h, _)   -> pure $ multidimensional codec' (length h)
+      (Ast.ExplicitTypenameArrayDimensions _, _) -> pure $ multidimensional codec' 1

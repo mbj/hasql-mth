@@ -1,9 +1,9 @@
-resolver: nightly-2023-06-11
+resolver: lts-21.1
 packages:
 - .
 extra-deps:
 - github: mbj/mhs
-  commit: bd1b8bbaf3a69eac0d17bf701945ce817a1bdf31
+  commit: 184fc4c8c9f01ccad0b8d40d911ee92ef81da777
   subdirs:
   - cbt
   - conversions
@@ -14,8 +14,6 @@ extra-deps:
   - mprelude
   - source-constraints
   - tasty-mgolden
-- github: mbj/postgresql-syntax
-  commit: 93352c9105406a96a97ba63dca9374645efee5b6
 flags:
   mhasql-th:
     development: true

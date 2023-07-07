@@ -4,17 +4,17 @@ import MPrelude
 
 import qualified CBT
 import qualified CBT.Container
-import qualified DBT.Postgresql.Connection as DBT
-import qualified DBT.Postgresql.Container  as DBT
+import qualified DBT.Connection     as DBT
+import qualified DBT.Container      as DBT
 import qualified Devtools
-import qualified Hasql.Connection          as Hasql
-import qualified Hasql.Session             as Hasql
-import qualified Hasql.Statement           as Hasql
-import qualified MHasql.TH                 as MHasql
-import qualified Test.Database             as Test
-import qualified Test.Tasty                as Tasty
-import qualified Test.Tasty.HUnit          as Tasty
-import qualified UnliftIO.Exception        as Exception
+import qualified Hasql.Connection   as Hasql
+import qualified Hasql.Session      as Hasql
+import qualified Hasql.Statement    as Hasql
+import qualified MHasql.TH          as MHasql
+import qualified Test.Database      as Test
+import qualified Test.Tasty         as Tasty
+import qualified Test.Tasty.HUnit   as Tasty
+import qualified UnliftIO.Exception as Exception
 
 main :: IO ()
 main = do
