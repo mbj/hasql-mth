@@ -1,6 +1,6 @@
 {-# OPTIONS -Wno-missing-signatures #-}
 
-module MHasql.TH.Extraction.ChildExprList
+module Hasql.MTH.Extraction.ChildExprList
   ( ChildExpr(..)
   , aChildExpr
   , bChildExpr
@@ -9,7 +9,7 @@ module MHasql.TH.Extraction.ChildExprList
   )
 where
 
-import MHasql.TH.Prelude
+import Hasql.MTH.Prelude
 import PostgresqlSyntax.Ast
 
 -- * Types

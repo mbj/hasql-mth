@@ -15,5 +15,5 @@ extra-deps:
   - source-constraints
   - tasty-mgolden
 flags:
-  mhasql-th:
+  hasql-mth:
     development: true

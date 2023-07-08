@@ -1,6 +1,6 @@
 -- |
 -- Expression construction.
-module MHasql.TH.Construction.Exp
+module Hasql.MTH.Construction.Exp
   ( byteString
   , contrazip
   , cozip
@@ -18,9 +18,9 @@ module MHasql.TH.Construction.Exp
   )
 where
 
+import Hasql.MTH.Codec
+import Hasql.MTH.Prelude
 import Language.Haskell.TH.Syntax
-import MHasql.TH.Codec
-import MHasql.TH.Prelude
 
 import qualified Data.ByteString              as ByteString
 import qualified Data.ByteString.Unsafe       as ByteString

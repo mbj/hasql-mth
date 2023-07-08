@@ -1,4 +1,4 @@
-module MHasql.TH
+module Hasql.MTH
   ( foldStatement
   , maybeStatement
   , resultlessStatement
@@ -10,14 +10,14 @@ module MHasql.TH
   )
 where
 
+import Hasql.MTH.Prelude
 import Language.Haskell.TH.Quote
 import Language.Haskell.TH.Syntax
-import MHasql.TH.Prelude
 
 import qualified Data.Text                  as Text
 import qualified Data.Text.Encoding         as Text
-import qualified MHasql.TH.Construction.Exp as Exp
-import qualified MHasql.TH.Extraction.Exp   as ExpExtraction
+import qualified Hasql.MTH.Construction.Exp as Exp
+import qualified Hasql.MTH.Extraction.Exp   as ExpExtraction
 import qualified PostgresqlSyntax.Ast       as Ast
 import qualified PostgresqlSyntax.Parsing   as Parsing
 
@@ -42,7 +42,7 @@ expPreparableStmtAstParser parser =
 -- >>> import Data.Int
 -- >>> import Data.Vector
 -- >>> import Hasql.Statement
--- >>> import MHasql.TH.Codec
+-- >>> import Hasql.MTH.Codec
 -- >>> foldStatement'         = foldStatement         findCodec
 -- >>> maybeStatement'        = maybeStatement        findCodec
 -- >>> resultlessStatement'   = resultlessStatement   findCodec

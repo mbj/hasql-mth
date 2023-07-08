@@ -1,4 +1,4 @@
-module MHasql.TH.Prelude
+module Hasql.MTH.Prelude
   ( module Exports
   , showAsText
   )

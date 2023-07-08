@@ -12,7 +12,7 @@ Key difference:
    original SQL string to the PG server, removing the SQL generation from the critical correctness pass.
 5. It uses a fork of [postgresql-syntax](https://github.com/nikita-volkow/postgresql-syntax) with support
    for non standard `?` type suffixes removed.
-6. Rename to `MHasql.TH` namespace.
+6. Rename to `Hasql.MTH` namespace.
 
 ## Acknowledgements
 

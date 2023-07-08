@@ -1,13 +1,13 @@
 {-# OPTIONS -Wno-missing-signatures #-}
 
-module MHasql.TH.Extraction.PlaceholderTypeMap (preparableStmt) where
+module Hasql.MTH.Extraction.PlaceholderTypeMap (preparableStmt) where
 
-import MHasql.TH.Extraction.ChildExprList (ChildExpr (..))
-import MHasql.TH.Prelude
+import Hasql.MTH.Extraction.ChildExprList (ChildExpr (..))
+import Hasql.MTH.Prelude
 import PostgresqlSyntax.Ast
 
 import qualified Data.IntMap.Strict as IntMap
-import qualified MHasql.TH.Extraction.ChildExprList as ChildExprList
+import qualified Hasql.MTH.Extraction.ChildExprList as ChildExprList
 
 preparableStmt :: PreparableStmt -> Either Text (IntMap Typename)
 preparableStmt = childExprList . ChildExprList.preparableStmt

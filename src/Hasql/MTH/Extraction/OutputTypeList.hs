@@ -2,9 +2,9 @@
 
 -- |
 -- AST traversal extracting output types.
-module MHasql.TH.Extraction.OutputTypeList (preparableStmt) where
+module Hasql.MTH.Extraction.OutputTypeList (preparableStmt) where
 
-import MHasql.TH.Prelude
+import Hasql.MTH.Prelude
 import PostgresqlSyntax.Ast
 
 foldable :: Foldable f => (a -> Either Text [Typename]) -> f a -> Either Text [Typename]

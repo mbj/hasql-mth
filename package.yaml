@@ -1,6 +1,6 @@
-name: mhasql-th
+name: hasql-mth
 version: 0.5.0
-github: mbj/mhasql-th
+github: mbj/hasql-mth
 category: Hasql, Database, PostgreSQL, Template Haskell
 synopsis: Template Haskell integration for hasql.
 description: Fork of official hasql-th with different type generation trade offs.
@@ -60,8 +60,8 @@ when:
 library:
   source-dirs: src
   exposed-modules:
-  - MHasql.TH
-  - MHasql.TH.Codec
+  - Hasql.MTH
+  - Hasql.MTH.Codec
 
 tests:
   test:
@@ -76,7 +76,7 @@ tests:
     - dbt
     - devtools
     - hasql
-    - mhasql-th
+    - hasql-mth
     - mio-core
     - mprelude
     - tasty
@@ -87,4 +87,4 @@ tests:
     main: Main.hs
     dependencies:
     - doctest
-    - mhasql-th
+    - hasql-mth
