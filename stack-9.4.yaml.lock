@@ -7,123 +7,136 @@ packages:
 - completed:
     name: cbt
     pantry-tree:
-      sha256: 33b9ef3b8a4fb426e1f9c031cce920118bbeff15a56b1e80341cc89bfa5834e1
+      sha256: 9a3c91949fba922558e5936d8bc05f3069c634fcde56392eb8fd01dcca59e5cb
       size: 1145
-    sha256: 19570265f94bd658f816973825921fe5dbb664255ba0c485d9f19a5a93f84826
-    size: 159505
+    sha256: 39c2f04947309e4a181cf0470e49764efc313d181c2388535d81a8a6cf05d875
+    size: 263809
     subdir: cbt
-    url: https://github.com/mbj/mhs/archive/184fc4c8c9f01ccad0b8d40d911ee92ef81da777.tar.gz
-    version: 0.2.4
+    url: https://github.com/mbj/mhs/archive/5883320d2c4b78b2cbfa05e06170767d53915713.tar.gz
+    version: 0.2.5
   original:
     subdir: cbt
-    url: https://github.com/mbj/mhs/archive/184fc4c8c9f01ccad0b8d40d911ee92ef81da777.tar.gz
+    url: https://github.com/mbj/mhs/archive/5883320d2c4b78b2cbfa05e06170767d53915713.tar.gz
+- completed:
+    name: cli-utils
+    pantry-tree:
+      sha256: 6994694dfa317071c43c3296430b8c89c7ad881baa12242ab2727c9a91fdb4b0
+      size: 292
+    sha256: 39c2f04947309e4a181cf0470e49764efc313d181c2388535d81a8a6cf05d875
+    size: 263809
+    subdir: cli-utils
+    url: https://github.com/mbj/mhs/archive/5883320d2c4b78b2cbfa05e06170767d53915713.tar.gz
+    version: 0.0.1
+  original:
+    subdir: cli-utils
+    url: https://github.com/mbj/mhs/archive/5883320d2c4b78b2cbfa05e06170767d53915713.tar.gz
 - completed:
     name: conversions
     pantry-tree:
-      sha256: 19c5fb53be839c26971a625aee36db46998bd81c3f481838f07e444d0799c5d1
+      sha256: 5bdb482593600da30c3d5681f33209b21205f6705a557f9d8d93940496108b09
       size: 575
-    sha256: 19570265f94bd658f816973825921fe5dbb664255ba0c485d9f19a5a93f84826
-    size: 159505
+    sha256: 39c2f04947309e4a181cf0470e49764efc313d181c2388535d81a8a6cf05d875
+    size: 263809
     subdir: conversions
-    url: https://github.com/mbj/mhs/archive/184fc4c8c9f01ccad0b8d40d911ee92ef81da777.tar.gz
+    url: https://github.com/mbj/mhs/archive/5883320d2c4b78b2cbfa05e06170767d53915713.tar.gz
     version: 0.0.10
   original:
     subdir: conversions
-    url: https://github.com/mbj/mhs/archive/184fc4c8c9f01ccad0b8d40d911ee92ef81da777.tar.gz
+    url: https://github.com/mbj/mhs/archive/5883320d2c4b78b2cbfa05e06170767d53915713.tar.gz
 - completed:
     name: dbt
     pantry-tree:
-      sha256: ca2335c63c38c17de165b902148406cff6b7cd3b906c610f8bcfa43d3c0a9cda
-      size: 886
-    sha256: 19570265f94bd658f816973825921fe5dbb664255ba0c485d9f19a5a93f84826
-    size: 159505
+      sha256: 91ea478967bb088b23675a307746ed5d11e23db3f4a5341ea0c7e4de1d64365a
+      size: 887
+    sha256: 39c2f04947309e4a181cf0470e49764efc313d181c2388535d81a8a6cf05d875
+    size: 263809
     subdir: dbt
-    url: https://github.com/mbj/mhs/archive/184fc4c8c9f01ccad0b8d40d911ee92ef81da777.tar.gz
-    version: 0.2.0
+    url: https://github.com/mbj/mhs/archive/5883320d2c4b78b2cbfa05e06170767d53915713.tar.gz
+    version: 0.2.1
   original:
     subdir: dbt
-    url: https://github.com/mbj/mhs/archive/184fc4c8c9f01ccad0b8d40d911ee92ef81da777.tar.gz
+    url: https://github.com/mbj/mhs/archive/5883320d2c4b78b2cbfa05e06170767d53915713.tar.gz
 - completed:
     name: devtools
     pantry-tree:
-      sha256: 8607d8cf3d74f71be6c285f3d7217e51b88e5da99fd95db90632474b4875289b
+      sha256: a71f747acd71fbbfffd28d725f6d56223e9175436dbcdc349ea39c30a979f4a7
       size: 578
-    sha256: 19570265f94bd658f816973825921fe5dbb664255ba0c485d9f19a5a93f84826
-    size: 159505
+    sha256: 39c2f04947309e4a181cf0470e49764efc313d181c2388535d81a8a6cf05d875
+    size: 263809
     subdir: devtools
-    url: https://github.com/mbj/mhs/archive/184fc4c8c9f01ccad0b8d40d911ee92ef81da777.tar.gz
+    url: https://github.com/mbj/mhs/archive/5883320d2c4b78b2cbfa05e06170767d53915713.tar.gz
     version: 0.2.0
   original:
     subdir: devtools
-    url: https://github.com/mbj/mhs/archive/184fc4c8c9f01ccad0b8d40d911ee92ef81da777.tar.gz
+    url: https://github.com/mbj/mhs/archive/5883320d2c4b78b2cbfa05e06170767d53915713.tar.gz
 - completed:
     name: mio-core
     pantry-tree:
-      sha256: d16301fbfe8f11ad0b4dfb873f11bb3cfcadfbdda6080f98a30409f0a3cbe822
+      sha256: fa0a2ff3bbe8839b36b313a17ea27e8465948591b8d9f74b94b3c2b522c5ff4b
       size: 338
-    sha256: 19570265f94bd658f816973825921fe5dbb664255ba0c485d9f19a5a93f84826
-    size: 159505
+    sha256: 39c2f04947309e4a181cf0470e49764efc313d181c2388535d81a8a6cf05d875
+    size: 263809
     subdir: mio-core
-    url: https://github.com/mbj/mhs/archive/184fc4c8c9f01ccad0b8d40d911ee92ef81da777.tar.gz
+    url: https://github.com/mbj/mhs/archive/5883320d2c4b78b2cbfa05e06170767d53915713.tar.gz
     version: 0.0.1
   original:
     subdir: mio-core
-    url: https://github.com/mbj/mhs/archive/184fc4c8c9f01ccad0b8d40d911ee92ef81da777.tar.gz
+    url: https://github.com/mbj/mhs/archive/5883320d2c4b78b2cbfa05e06170767d53915713.tar.gz
 - completed:
     name: mio-log
     pantry-tree:
-      sha256: b4167ab664bafbd62b57fc0e2ee1f8cc3bb4b2f9f1eb60fb0aef7e030e7af71c
+      sha256: 7f417764d6cc90d26de912620ad793bc883278dec4312ba26149521a54176bf7
       size: 461
-    sha256: 19570265f94bd658f816973825921fe5dbb664255ba0c485d9f19a5a93f84826
-    size: 159505
+    sha256: 39c2f04947309e4a181cf0470e49764efc313d181c2388535d81a8a6cf05d875
+    size: 263809
     subdir: mio-log
-    url: https://github.com/mbj/mhs/archive/184fc4c8c9f01ccad0b8d40d911ee92ef81da777.tar.gz
+    url: https://github.com/mbj/mhs/archive/5883320d2c4b78b2cbfa05e06170767d53915713.tar.gz
     version: 0.0.3
   original:
     subdir: mio-log
-    url: https://github.com/mbj/mhs/archive/184fc4c8c9f01ccad0b8d40d911ee92ef81da777.tar.gz
+    url: https://github.com/mbj/mhs/archive/5883320d2c4b78b2cbfa05e06170767d53915713.tar.gz
 - completed:
     name: mprelude
     pantry-tree:
-      sha256: d1d842e75a9824f5bce3ad4473cb8b5e390a548ddce171475c94386c9b1d3c60
+      sha256: d024d114788a83088a58ab5bc0f3b6733e93b21b843d13fba2544d552b14e161
       size: 366
-    sha256: 19570265f94bd658f816973825921fe5dbb664255ba0c485d9f19a5a93f84826
-    size: 159505
+    sha256: 39c2f04947309e4a181cf0470e49764efc313d181c2388535d81a8a6cf05d875
+    size: 263809
     subdir: mprelude
-    url: https://github.com/mbj/mhs/archive/184fc4c8c9f01ccad0b8d40d911ee92ef81da777.tar.gz
-    version: 0.2.1
+    url: https://github.com/mbj/mhs/archive/5883320d2c4b78b2cbfa05e06170767d53915713.tar.gz
+    version: 0.2.3
   original:
     subdir: mprelude
-    url: https://github.com/mbj/mhs/archive/184fc4c8c9f01ccad0b8d40d911ee92ef81da777.tar.gz
+    url: https://github.com/mbj/mhs/archive/5883320d2c4b78b2cbfa05e06170767d53915713.tar.gz
 - completed:
     name: source-constraints
     pantry-tree:
       sha256: 96bc61726d31a1601d9d5a0ddf8e180201ce9afe5d7ac400585c6a662ed506bc
       size: 650
-    sha256: 19570265f94bd658f816973825921fe5dbb664255ba0c485d9f19a5a93f84826
-    size: 159505
+    sha256: 39c2f04947309e4a181cf0470e49764efc313d181c2388535d81a8a6cf05d875
+    size: 263809
     subdir: source-constraints
-    url: https://github.com/mbj/mhs/archive/184fc4c8c9f01ccad0b8d40d911ee92ef81da777.tar.gz
+    url: https://github.com/mbj/mhs/archive/5883320d2c4b78b2cbfa05e06170767d53915713.tar.gz
     version: 0.0.4
   original:
     subdir: source-constraints
-    url: https://github.com/mbj/mhs/archive/184fc4c8c9f01ccad0b8d40d911ee92ef81da777.tar.gz
+    url: https://github.com/mbj/mhs/archive/5883320d2c4b78b2cbfa05e06170767d53915713.tar.gz
 - completed:
     name: tasty-mgolden
     pantry-tree:
       sha256: 4f375e4e5af8c41a8b387d359a3aadd75125f1617cd55b66abcae6e399385870
       size: 621
-    sha256: 19570265f94bd658f816973825921fe5dbb664255ba0c485d9f19a5a93f84826
-    size: 159505
+    sha256: 39c2f04947309e4a181cf0470e49764efc313d181c2388535d81a8a6cf05d875
+    size: 263809
     subdir: tasty-mgolden
-    url: https://github.com/mbj/mhs/archive/184fc4c8c9f01ccad0b8d40d911ee92ef81da777.tar.gz
+    url: https://github.com/mbj/mhs/archive/5883320d2c4b78b2cbfa05e06170767d53915713.tar.gz
     version: 0.0.2
   original:
     subdir: tasty-mgolden
-    url: https://github.com/mbj/mhs/archive/184fc4c8c9f01ccad0b8d40d911ee92ef81da777.tar.gz
+    url: https://github.com/mbj/mhs/archive/5883320d2c4b78b2cbfa05e06170767d53915713.tar.gz
 snapshots:
 - completed:
-    sha256: c4381351ba5837a6356fcc0ebeb7a61fdcaf3a085c903a6f730f56b131d5cb58
-    size: 639143
-    url: https://raw.githubusercontent.com/commercialhaskell/stackage-snapshots/master/lts/21/1.yaml
-  original: lts-21.1
+    sha256: 60e54c1ba3c1e7163acf6dafa9d56b2d3b23f88a31ad53a1c9d888f32561f8da
+    size: 639819
+    url: https://raw.githubusercontent.com/commercialhaskell/stackage-snapshots/master/lts/21/14.yaml
+  original: lts-21.14

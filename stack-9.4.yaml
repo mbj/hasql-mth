@@ -1,11 +1,12 @@
-resolver: lts-21.1
+resolver: lts-21.14
 packages:
 - .
 extra-deps:
 - github: mbj/mhs
-  commit: 184fc4c8c9f01ccad0b8d40d911ee92ef81da777
+  commit: 5883320d2c4b78b2cbfa05e06170767d53915713
   subdirs:
   - cbt
+  - cli-utils
   - conversions
   - dbt
   - devtools
