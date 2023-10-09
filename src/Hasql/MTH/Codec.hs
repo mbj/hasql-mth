@@ -2,16 +2,29 @@ module Hasql.MTH.Codec
   ( Codec(..)
   , bool
   , bytea
+  , char
   , customFindCodec
+  , date
   , findCodec
+  , float4
+  , float8
   , genericName
+  , inet
+  , int2
+  , int4
+  , int8
+  , interval
   , json
   , jsonb
   , mkDecoderNullable
   , mkEncoderNullable
   , numeric
   , setNonNull
+  , text
+  , time
   , timestamp
+  , timestamptz
+  , timetz
   , uuid
   )
 where
