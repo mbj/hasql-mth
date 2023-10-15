@@ -16,6 +16,7 @@ module Hasql.MTH.Codec
   , interval
   , json
   , jsonb
+  , mkCodecNullable
   , mkDecoderNullable
   , mkEncoderNullable
   , numeric
@@ -36,8 +37,6 @@ import PostgresqlSyntax.Ast
 import qualified Hasql.Decoders      as Decoders
 import qualified Hasql.Encoders      as Encoders
 import qualified Language.Haskell.TH as TH
-
-data Nullability = Nullable | NonNullable
 
 data Codec = Codec
   { mkEncoderNullability :: TH.Exp -> TH.Exp
@@ -123,37 +122,34 @@ genericName = \case
 bool, bytea, char, date, float4, float8, inet, int2, int4, int8, interval :: Codec
 json, jsonb, numeric, text, time, timestamp, timestamptz, timetz, uuid    :: Codec
 
-bool        = mkCodec Nullable 'Encoders.bool        'Decoders.bool
-bytea       = mkCodec Nullable 'Encoders.bytea       'Decoders.bytea
-char        = mkCodec Nullable 'Encoders.char        'Decoders.char
-date        = mkCodec Nullable 'Encoders.date        'Decoders.date
-float4      = mkCodec Nullable 'Encoders.float4      'Decoders.float4
-float8      = mkCodec Nullable 'Encoders.float8      'Decoders.float8
-inet        = mkCodec Nullable 'Encoders.inet        'Decoders.inet
-int2        = mkCodec Nullable 'Encoders.int2        'Decoders.int2
-int4        = mkCodec Nullable 'Encoders.int4        'Decoders.int4
-int8        = mkCodec Nullable 'Encoders.int8        'Decoders.int8
-interval    = mkCodec Nullable 'Encoders.interval    'Decoders.interval
-json        = mkCodec Nullable 'Encoders.json        'Decoders.json
-jsonb       = mkCodec Nullable 'Encoders.jsonb       'Decoders.jsonb
-numeric     = mkCodec Nullable 'Encoders.numeric     'Decoders.numeric
-text        = mkCodec Nullable 'Encoders.text        'Decoders.text
-time        = mkCodec Nullable 'Encoders.time        'Decoders.time
-timestamp   = mkCodec Nullable 'Encoders.timestamp   'Decoders.timestamp
-timestamptz = mkCodec Nullable 'Encoders.timestamptz 'Decoders.timestamptz
-timetz      = mkCodec Nullable 'Encoders.timetz      'Decoders.timetz
-uuid        = mkCodec Nullable 'Encoders.uuid        'Decoders.uuid
+bool        = mkCodecNullable 'Encoders.bool        'Decoders.bool
+bytea       = mkCodecNullable 'Encoders.bytea       'Decoders.bytea
+char        = mkCodecNullable 'Encoders.char        'Decoders.char
+date        = mkCodecNullable 'Encoders.date        'Decoders.date
+float4      = mkCodecNullable 'Encoders.float4      'Decoders.float4
+float8      = mkCodecNullable 'Encoders.float8      'Decoders.float8
+inet        = mkCodecNullable 'Encoders.inet        'Decoders.inet
+int2        = mkCodecNullable 'Encoders.int2        'Decoders.int2
+int4        = mkCodecNullable 'Encoders.int4        'Decoders.int4
+int8        = mkCodecNullable 'Encoders.int8        'Decoders.int8
+interval    = mkCodecNullable 'Encoders.interval    'Decoders.interval
+json        = mkCodecNullable 'Encoders.json        'Decoders.json
+jsonb       = mkCodecNullable 'Encoders.jsonb       'Decoders.jsonb
+numeric     = mkCodecNullable 'Encoders.numeric     'Decoders.numeric
+text        = mkCodecNullable 'Encoders.text        'Decoders.text
+time        = mkCodecNullable 'Encoders.time        'Decoders.time
+timestamp   = mkCodecNullable 'Encoders.timestamp   'Decoders.timestamp
+timestamptz = mkCodecNullable 'Encoders.timestamptz 'Decoders.timestamptz
+timetz      = mkCodecNullable 'Encoders.timetz      'Decoders.timetz
+uuid        = mkCodecNullable 'Encoders.uuid        'Decoders.uuid
 
-mkCodec :: Nullability -> TH.Name -> TH.Name -> Codec
-mkCodec nullable encoder decoder = Codec
-  { decoder = TH.VarE decoder
-  , encoder = TH.VarE encoder
-  , ..
+mkCodecNullable :: TH.Name -> TH.Name -> Codec
+mkCodecNullable encoder decoder = Codec
+  { decoder              = TH.VarE decoder
+  , encoder              = TH.VarE encoder
+  , mkDecoderNullability = mkDecoderNullable
+  , mkEncoderNullability = mkEncoderNullable
   }
-  where
-    (mkDecoderNullability, mkEncoderNullability) = case nullable of
-      Nullable    -> (mkDecoderNullable, mkEncoderNullable)
-      NonNullable -> (mkDecoderNonNullable, mkEncoderNonNullable)
 
 mkDecoderNonNullable, mkDecoderNullable, mkEncoderNonNullable, mkEncoderNullable :: TH.Exp -> TH.Exp
 mkDecoderNonNullable = TH.AppE $ TH.VarE 'Decoders.nonNullable
