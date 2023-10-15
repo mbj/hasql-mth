@@ -16,6 +16,7 @@ module Hasql.MTH.Codec
   , interval
   , json
   , jsonb
+  , mkCodecNullable
   , mkDecoderNullable
   , mkEncoderNullable
   , numeric
@@ -121,29 +122,29 @@ genericName = \case
 bool, bytea, char, date, float4, float8, inet, int2, int4, int8, interval :: Codec
 json, jsonb, numeric, text, time, timestamp, timestamptz, timetz, uuid    :: Codec
 
-bool        = mkCodec 'Encoders.bool        'Decoders.bool
-bytea       = mkCodec 'Encoders.bytea       'Decoders.bytea
-char        = mkCodec 'Encoders.char        'Decoders.char
-date        = mkCodec 'Encoders.date        'Decoders.date
-float4      = mkCodec 'Encoders.float4      'Decoders.float4
-float8      = mkCodec 'Encoders.float8      'Decoders.float8
-inet        = mkCodec 'Encoders.inet        'Decoders.inet
-int2        = mkCodec 'Encoders.int2        'Decoders.int2
-int4        = mkCodec 'Encoders.int4        'Decoders.int4
-int8        = mkCodec 'Encoders.int8        'Decoders.int8
-interval    = mkCodec 'Encoders.interval    'Decoders.interval
-json        = mkCodec 'Encoders.json        'Decoders.json
-jsonb       = mkCodec 'Encoders.jsonb       'Decoders.jsonb
-numeric     = mkCodec 'Encoders.numeric     'Decoders.numeric
-text        = mkCodec 'Encoders.text        'Decoders.text
-time        = mkCodec 'Encoders.time        'Decoders.time
-timestamp   = mkCodec 'Encoders.timestamp   'Decoders.timestamp
-timestamptz = mkCodec 'Encoders.timestamptz 'Decoders.timestamptz
-timetz      = mkCodec 'Encoders.timetz      'Decoders.timetz
-uuid        = mkCodec 'Encoders.uuid        'Decoders.uuid
+bool        = mkCodecNullable 'Encoders.bool        'Decoders.bool
+bytea       = mkCodecNullable 'Encoders.bytea       'Decoders.bytea
+char        = mkCodecNullable 'Encoders.char        'Decoders.char
+date        = mkCodecNullable 'Encoders.date        'Decoders.date
+float4      = mkCodecNullable 'Encoders.float4      'Decoders.float4
+float8      = mkCodecNullable 'Encoders.float8      'Decoders.float8
+inet        = mkCodecNullable 'Encoders.inet        'Decoders.inet
+int2        = mkCodecNullable 'Encoders.int2        'Decoders.int2
+int4        = mkCodecNullable 'Encoders.int4        'Decoders.int4
+int8        = mkCodecNullable 'Encoders.int8        'Decoders.int8
+interval    = mkCodecNullable 'Encoders.interval    'Decoders.interval
+json        = mkCodecNullable 'Encoders.json        'Decoders.json
+jsonb       = mkCodecNullable 'Encoders.jsonb       'Decoders.jsonb
+numeric     = mkCodecNullable 'Encoders.numeric     'Decoders.numeric
+text        = mkCodecNullable 'Encoders.text        'Decoders.text
+time        = mkCodecNullable 'Encoders.time        'Decoders.time
+timestamp   = mkCodecNullable 'Encoders.timestamp   'Decoders.timestamp
+timestamptz = mkCodecNullable 'Encoders.timestamptz 'Decoders.timestamptz
+timetz      = mkCodecNullable 'Encoders.timetz      'Decoders.timetz
+uuid        = mkCodecNullable 'Encoders.uuid        'Decoders.uuid
 
-mkCodec :: TH.Name -> TH.Name -> Codec
-mkCodec encoder decoder = Codec
+mkCodecNullable :: TH.Name -> TH.Name -> Codec
+mkCodecNullable encoder decoder = Codec
   { decoder              = TH.VarE decoder
   , encoder              = TH.VarE encoder
   , mkDecoderNullability = mkDecoderNullable
