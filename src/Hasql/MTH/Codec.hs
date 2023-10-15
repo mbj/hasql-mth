@@ -37,8 +37,6 @@ import qualified Hasql.Decoders      as Decoders
 import qualified Hasql.Encoders      as Encoders
 import qualified Language.Haskell.TH as TH
 
-data Nullability = Nullable | NonNullable
-
 data Codec = Codec
   { mkEncoderNullability :: TH.Exp -> TH.Exp
   , mkDecoderNullability :: TH.Exp -> TH.Exp
@@ -123,37 +121,34 @@ genericName = \case
 bool, bytea, char, date, float4, float8, inet, int2, int4, int8, interval :: Codec
 json, jsonb, numeric, text, time, timestamp, timestamptz, timetz, uuid    :: Codec
 
-bool        = mkCodec Nullable 'Encoders.bool        'Decoders.bool
-bytea       = mkCodec Nullable 'Encoders.bytea       'Decoders.bytea
-char        = mkCodec Nullable 'Encoders.char        'Decoders.char
-date        = mkCodec Nullable 'Encoders.date        'Decoders.date
-float4      = mkCodec Nullable 'Encoders.float4      'Decoders.float4
-float8      = mkCodec Nullable 'Encoders.float8      'Decoders.float8
-inet        = mkCodec Nullable 'Encoders.inet        'Decoders.inet
-int2        = mkCodec Nullable 'Encoders.int2        'Decoders.int2
-int4        = mkCodec Nullable 'Encoders.int4        'Decoders.int4
-int8        = mkCodec Nullable 'Encoders.int8        'Decoders.int8
-interval    = mkCodec Nullable 'Encoders.interval    'Decoders.interval
-json        = mkCodec Nullable 'Encoders.json        'Decoders.json
-jsonb       = mkCodec Nullable 'Encoders.jsonb       'Decoders.jsonb
-numeric     = mkCodec Nullable 'Encoders.numeric     'Decoders.numeric
-text        = mkCodec Nullable 'Encoders.text        'Decoders.text
-time        = mkCodec Nullable 'Encoders.time        'Decoders.time
-timestamp   = mkCodec Nullable 'Encoders.timestamp   'Decoders.timestamp
-timestamptz = mkCodec Nullable 'Encoders.timestamptz 'Decoders.timestamptz
-timetz      = mkCodec Nullable 'Encoders.timetz      'Decoders.timetz
-uuid        = mkCodec Nullable 'Encoders.uuid        'Decoders.uuid
+bool        = mkCodec 'Encoders.bool        'Decoders.bool
+bytea       = mkCodec 'Encoders.bytea       'Decoders.bytea
+char        = mkCodec 'Encoders.char        'Decoders.char
+date        = mkCodec 'Encoders.date        'Decoders.date
+float4      = mkCodec 'Encoders.float4      'Decoders.float4
+float8      = mkCodec 'Encoders.float8      'Decoders.float8
+inet        = mkCodec 'Encoders.inet        'Decoders.inet
+int2        = mkCodec 'Encoders.int2        'Decoders.int2
+int4        = mkCodec 'Encoders.int4        'Decoders.int4
+int8        = mkCodec 'Encoders.int8        'Decoders.int8
+interval    = mkCodec 'Encoders.interval    'Decoders.interval
+json        = mkCodec 'Encoders.json        'Decoders.json
+jsonb       = mkCodec 'Encoders.jsonb       'Decoders.jsonb
+numeric     = mkCodec 'Encoders.numeric     'Decoders.numeric
+text        = mkCodec 'Encoders.text        'Decoders.text
+time        = mkCodec 'Encoders.time        'Decoders.time
+timestamp   = mkCodec 'Encoders.timestamp   'Decoders.timestamp
+timestamptz = mkCodec 'Encoders.timestamptz 'Decoders.timestamptz
+timetz      = mkCodec 'Encoders.timetz      'Decoders.timetz
+uuid        = mkCodec 'Encoders.uuid        'Decoders.uuid
 
-mkCodec :: Nullability -> TH.Name -> TH.Name -> Codec
-mkCodec nullable encoder decoder = Codec
-  { decoder = TH.VarE decoder
-  , encoder = TH.VarE encoder
-  , ..
+mkCodec :: TH.Name -> TH.Name -> Codec
+mkCodec encoder decoder = Codec
+  { decoder              = TH.VarE decoder
+  , encoder              = TH.VarE encoder
+  , mkDecoderNullability = mkDecoderNullable
+  , mkEncoderNullability = mkEncoderNullable
   }
-  where
-    (mkDecoderNullability, mkEncoderNullability) = case nullable of
-      Nullable    -> (mkDecoderNullable, mkEncoderNullable)
-      NonNullable -> (mkDecoderNonNullable, mkEncoderNonNullable)
 
 mkDecoderNonNullable, mkDecoderNullable, mkEncoderNonNullable, mkEncoderNullable :: TH.Exp -> TH.Exp
 mkDecoderNonNullable = TH.AppE $ TH.VarE 'Decoders.nonNullable
